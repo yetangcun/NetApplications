@@ -39,7 +39,7 @@ namespace GrpcWpfClient
                 Opt = 1
             };
 
-            var res = await GrpcClientHandle.GrpcGeneralCall("192.168.12.99", 52001, reqParams, channelKey);
+            var res = await GrpcClientHandle.GrpcGeneralCall("192.168.3.4", 52001, reqParams, channelKey);
 
             var bytes = new byte[res.Bts.Length];
 
