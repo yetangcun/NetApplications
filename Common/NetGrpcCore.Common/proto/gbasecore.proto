@@ -1,0 +1,49 @@
+﻿syntax = "proto3";
+
+import "protobuf/any.proto";
+import "protobuf/empty.proto";
+
+package GrpcBaseCore.Services;
+
+service GrpcBaseCoreService {
+
+    // 有入参有返回
+	rpc GrpcGeneralCall(GrpcBaseReq) returns (GrpcBaseRes);
+
+	// 有入参无返回
+	rpc GrpcGeneralCallWithoutResponse(GrpcBaseReq) returns (google.protobuf.Empty);
+	
+	// 无入参有返回
+	rpc GrpcGeneralCallWithoutReqparam(google.protobuf.Empty) returns (GrpcBaseRes);
+
+	// 客户端流式rpc
+	rpc GrpcClientWayStream(stream GrpcBaseReq) returns (GrpcBaseRes);
+
+	// 服务端流式rpc
+	rpc GrpcServerWayStream(GrpcBaseReq) returns (stream GrpcBaseRes);
+
+	// 双向流式rpc
+	rpc GrpcTwoWayStream(stream GrpcBaseReq) returns (stream GrpcBaseRes);
+
+}
+
+message GrpcBaseReq{
+	int64 sid=1; // 请求标识
+	int32 opt=2; // 操作类型
+	string data=3; // 数据 json
+	string vers=4; // 版本
+	int64 times=5; // 时间戳
+	string cid=6; // 客户端id
+	bytes bts=7; // 二进制
+	google.protobuf.Any extension=8; // 扩展
+}
+
+message GrpcBaseRes {
+	int64 sid=1; // 请求标识
+	int32 opt=2; // 操作类型
+	string data=3; // 数据 json
+	string msg=4; // 版本
+	int64 times=5; // 时间戳
+	bytes bts=6; // 二进制
+	google.protobuf.Any extension = 7; // 扩展参数
+}

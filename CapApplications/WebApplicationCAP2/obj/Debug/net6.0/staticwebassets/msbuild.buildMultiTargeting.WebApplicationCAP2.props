@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\WebApplicationCAP2.props" />
+</Project>

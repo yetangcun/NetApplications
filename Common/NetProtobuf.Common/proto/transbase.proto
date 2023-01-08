@@ -1,0 +1,27 @@
+﻿syntax = "proto3";
+
+import "protobuf/any.proto";
+
+package TransBase;
+
+message TransReq{
+	int64 sid=1; // 请求标识
+	int32 opt=2; // 操作类型
+	string data=3; // 数据
+	string vers=4; // 版本
+	int64 times=5; // 时间戳
+	string cid=6; // 客户端id
+	bytes bts=7; // 二进制
+	google.protobuf.Any extension=8; // 扩展
+}
+
+message TransRes {
+	int64 sid=1; // 请求标识
+	int32 opt=2; // 操作类型
+	string data=3; // 数据
+	string msg=4; // 版本
+	int64 times=5; // 时间戳
+	bytes bts=6; // 二进制
+	bool result=7; // 执行结果 
+	google.protobuf.Any extension = 8; // 扩展参数
+}

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "wTch10/VapgF4Sdj6AY3+vIZ3PViTeqdvCQXvpTktmK+d4u69fkTZpVDKi0Y5ynKdYE6RpDTXSnNyxY4pASOxw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\xiaoxiao\\Desktop\\NetApplications\\Common\\NetProtobuf.Common\\NetProtobuf.Common.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\xiaoxiao\\.nuget\\packages\\google.protobuf\\3.21.12\\google.protobuf.3.21.12.nupkg.sha512",
+    "C:\\Users\\xiaoxiao\\.nuget\\packages\\google.protobuf.tools\\3.21.12\\google.protobuf.tools.3.21.12.nupkg.sha512"
+  ],
+  "logs": []
+}
