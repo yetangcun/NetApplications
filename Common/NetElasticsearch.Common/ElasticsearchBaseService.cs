@@ -54,19 +54,17 @@ namespace NetElasticsearch.Common
             return null;
         }
 
-        public void Add<T>(T data) where T : class
+        public async Task<bool> Add<T>(T data) where T : class
         {
             var mapName = getEsIndexName(typeof(T));
             if (string.IsNullOrWhiteSpace(mapName))
             {
-                return;
+                return false;
             }
 
-            var res = esClient.Index(data, i => i.Index(mapName));
-            if (!res.IsValid) // 插入失败
-            {
-                return;
-            }
+            var res = await esClient.IndexAsync(data, i => i.Index(mapName));
+
+            return res.IsValid;
         }
 
         public void MulAdd<T>(List<T> datas) where T : class
@@ -84,7 +82,7 @@ namespace NetElasticsearch.Common
             }
         }
 
-        public List<T> Query<T>() where T : class
+        public async Task<List<T>> Query<T>() where T : class
         {
             var mapName = getEsIndexName(typeof(T));
             if (string.IsNullOrWhiteSpace(mapName))
@@ -94,9 +92,9 @@ namespace NetElasticsearch.Common
 
             var query = new MatchAllQuery(); //查询全部
 
-            var searchRes = esClient.
-                Search<T>(s => s.Index(mapName).
-                Query(q=>query));
+            var searchRes = await esClient.
+                SearchAsync<T>(s => s.Index(mapName).
+                Query(q => query));
 
             return searchRes.Documents.ToList();
         }
