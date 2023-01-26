@@ -26,5 +26,30 @@ namespace NetElasticsearchApi.Controllers
 
             return result == null ? "" : JsonConvert.SerializeObject(result);
         }
+
+        [HttpPost("EsAddAsync")]
+        public async Task<bool> EsAddAsync([FromBody] EsPassRecord record, [FromServices] IElasticsearchBaseService service)
+        {
+            var result = await service.QueryWhere<EsPassRecord>(e => e.Term("No", record.No));
+
+            if (result == null || result.Count < 1)
+            {
+                await service.Add(record);
+                return true;
+            }
+
+            return false;
+        }
+
+        [HttpDelete("EsDelAsync")]
+        public async Task<bool> EsDelAsync(string no, [FromServices] IElasticsearchBaseService service)
+        {
+            var result = await service.QueryWhere<EsPassRecord>(e => e.Term("No", no));
+            if (result == null || result.Count < 1)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

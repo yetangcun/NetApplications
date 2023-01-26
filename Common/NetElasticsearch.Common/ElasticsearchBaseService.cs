@@ -2,8 +2,10 @@
 using System;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Net.Http.Headers;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -17,11 +19,15 @@ namespace NetElasticsearch.Common
 
         private ElasticClient esClient = null;
 
+        private IHttpClientFactory _httpClientFactory;
+
         public ElasticsearchBaseService(
+            IHttpClientFactory httpClientFactory,
             IOptions<ElasticsearchOptions> esOptions,
             ILogger<ElasticsearchBaseService> logger)
         {
             _logger = logger;
+            _httpClientFactory = httpClientFactory;
 
             var esOption = esOptions.Value;
 
@@ -38,29 +44,11 @@ namespace NetElasticsearch.Common
 
         #region 常用操作方法
 
-        private string getEsIndexName(Type type)
-        {
-            var properties = type.GetCustomAttributes(typeof(DescriptionAttribute), false);
-
-            if (properties != null && properties.Length > 0)
-            {
-                var desAttrObj = (DescriptionAttribute)properties.GetValue(0);
-
-                var mapName = desAttrObj.Description;
-
-                return mapName;
-            }
-
-            return null;
-        }
-
         public async Task<bool> Add<T>(T data) where T : class
         {
             var mapName = getEsIndexName(typeof(T));
             if (string.IsNullOrWhiteSpace(mapName))
-            {
                 return false;
-            }
 
             var res = await esClient.IndexAsync(data, i => i.Index(mapName));
 
@@ -80,6 +68,17 @@ namespace NetElasticsearch.Common
             {
                 return;
             }
+        }
+
+        public async Task<bool> Del<T>(string kId) where T : class
+        {
+            var mapName = getEsIndexName(typeof(T));
+            if (string.IsNullOrWhiteSpace(mapName))
+                return false;
+
+            await esClient.DeleteAsync<T>(kId, s => s.Index(mapName));
+
+            return false;
         }
 
         public async Task<List<T>> Query<T>() where T : class
@@ -131,7 +130,7 @@ namespace NetElasticsearch.Common
             return searchRes.Documents.ToList();
         }
 
-        public List<T> QueryWhere<T>(Func<QueryContainerDescriptor<T>, QueryContainer> func) where T : class
+        public async Task<List<T>> QueryWhere<T>(Func<QueryContainerDescriptor<T>, QueryContainer> func) where T : class
         {
             var mapName = getEsIndexName(typeof(T));
             if (string.IsNullOrWhiteSpace(mapName))
@@ -139,8 +138,8 @@ namespace NetElasticsearch.Common
                 return null;
             }
 
-            var searchRes = esClient.
-                Search<T>(s => s.Index(mapName).Query(func));
+            var searchRes = await esClient.
+                SearchAsync<T>(s => s.Index(mapName).Query(func));
 
             return searchRes.Documents.ToList();
         }
@@ -187,11 +186,71 @@ namespace NetElasticsearch.Common
             return data;
         }
 
-        public void QuerySql()
+        /// <summary>
+        /// ES之sql查询
+        /// 向ES发起sql查询
+        /// </summary>
+        /// <param name="esHttpUrl">es的http地址：http://ip:9200/_xpack/sql?format=csv，http://ip:9200/_xpack/sql?format=json，http://ip:9200/_xpack/sql?format=txt </param>
+        /// <param name="queryParam">query(就是sql: select * from employee where job='java')</param>
+        public async Task<string> EsSqlQuery(string esServerAddr, QueryParam queryParam, EsSqlDataFormat format = EsSqlDataFormat.json)
         {
+            var queryContent = new StringContent(JsonConvert.SerializeObject(queryParam));
+            queryContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
+            var httpClient = _httpClientFactory.CreateClient();
+            var response = await httpClient.PostAsync(esServerAddr, queryContent);
+
+            var result = await response.Content.ReadAsStringAsync();
+            return result;
         }
 
         #endregion
+
+        #region 私有公共方法
+
+        private string getEsIndexName(Type type)
+        {
+            var properties = type.GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+            if (properties != null && properties.Length > 0)
+            {
+                var desAttrObj = (DescriptionAttribute)properties.GetValue(0);
+
+                var mapName = desAttrObj.Description;
+
+                return mapName;
+            }
+
+            return null;
+        }
+
+        #endregion
+    }
+
+
+    public class QueryParam
+    {
+        public string query { get; set; }
+    }
+
+    /// <summary>
+    /// es执行sql查询返回结果格式
+    /// </summary>
+    public enum EsSqlDataFormat
+    {
+        /// <summary>
+        /// json
+        /// </summary>
+        json =1,
+
+        /// <summary>
+        /// cvs
+        /// </summary>
+        cvs = 2,
+
+        /// <summary>
+        /// 普通文本
+        /// </summary>
+        txt = 3
     }
 }
