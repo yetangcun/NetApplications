@@ -18,7 +18,9 @@ namespace NetElasticsearch.Common
         /// </summary>
         public static void EsModuleInitial(this IServiceCollection services, IConfiguration config)
         {
+            services.AddHttpClient();
             services.AddSingleton<IElasticsearchBaseService, ElasticsearchBaseService>();
+
             var esConfig = config.GetSection("EsServerOption").Get<ElasticsearchOptions>();
             services.Configure<ElasticsearchOptions>(opt =>
             {
