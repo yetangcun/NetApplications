@@ -76,9 +76,11 @@ namespace NetElasticsearch.Common
             if (string.IsNullOrWhiteSpace(mapName))
                 return false;
 
-            await esClient.DeleteAsync<T>(kId, s => s.Index(mapName));
+            var res = await esClient.DeleteAsync<T>(kId, s => s.Index(mapName));
 
-            return false;
+            var result = res == null ? false : res.IsValid;
+
+            return result;
         }
 
         public async Task<List<T>> Query<T>() where T : class

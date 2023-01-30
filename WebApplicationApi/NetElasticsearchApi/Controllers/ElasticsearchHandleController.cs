@@ -44,12 +44,8 @@ namespace NetElasticsearchApi.Controllers
         [HttpDelete("EsDelAsync")]
         public async Task<bool> EsDelAsync(string no, [FromServices] IElasticsearchBaseService service)
         {
-            var result = await service.QueryWhere<EsPassRecord>(e => e.Term("No", no));
-            if (result == null || result.Count < 1)
-            {
-                return true;
-            }
-            return false;
+            var result = await service.Del<EsPassRecord>(no);
+            return result;
         }
     }
 }

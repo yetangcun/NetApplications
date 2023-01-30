@@ -13,5 +13,7 @@ namespace NetElasticsearch.Common
         Task<List<T>> QueryWhere<T>(Func<QueryContainerDescriptor<T>, QueryContainer> func) where T : class;
 
         Task<string> EsSqlQuery(string esServerAddr, QueryParam queryParam, EsSqlDataFormat format = EsSqlDataFormat.json);
+
+        Task<bool> Del<T>(string kId) where T : class;
     }
 }
