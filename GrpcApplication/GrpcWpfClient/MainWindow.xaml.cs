@@ -15,8 +15,6 @@ using System.Windows.Media.Imaging;
 using GrpcBaseCore.Services;
 using NetGrpcCore.Common;
 using Newtonsoft.Json;
-using NetApplication.Common.Model.EsModel;
-using System.ComponentModel;
 
 namespace GrpcWpfClient
 {

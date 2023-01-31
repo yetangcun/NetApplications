@@ -1,13 +1,8 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+﻿using NetElasticsearch.Common.Model;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using NetApplication.Common.Model.Options;
 using Microsoft.Extensions.DependencyInjection;
-using NetApplication.Common.Model.EsModel;
 
 namespace NetElasticsearch.Common
 {

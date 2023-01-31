@@ -2,7 +2,7 @@
 using NetElasticsearch.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using NetApplication.Common.Model.EsModel;
+using NetElasticsearch.Common.Model;
 
 namespace NetElasticsearchApi.Controllers
 {
@@ -13,16 +13,15 @@ namespace NetElasticsearchApi.Controllers
         [HttpGet("EsQueryAsync")]
         public async Task<string> EsQueryAsync([FromServices] IElasticsearchBaseService service)
         {
-            var record = new EsPassRecord()
-            {
-                No = "X000001",
-                Name = "零零一"
-            };
-
             var result = await service.Query<EsPassRecord>();
 
             if (result == null || result.Count < 1)
-                await service.Add(record);
+                await service.Add(new EsPassRecord()
+                {
+                    Id = Guid.NewGuid().ToString("N"),
+                    No = "X000001",
+                    Name = "零零一"
+                });
 
             return result == null ? "" : JsonConvert.SerializeObject(result);
         }
@@ -30,10 +29,11 @@ namespace NetElasticsearchApi.Controllers
         [HttpPost("EsAddAsync")]
         public async Task<bool> EsAddAsync([FromBody] EsPassRecord record, [FromServices] IElasticsearchBaseService service)
         {
-            var result = await service.QueryWhere<EsPassRecord>(e => e.Term("No", record.No));
+            var result = await service.QueryWhere<EsPassRecord>(e => e.Term(p => p.No, record.No));
 
             if (result == null || result.Count < 1)
             {
+                record.Id = Guid.NewGuid().ToString("N");
                 await service.Add(record);
                 return true;
             }
