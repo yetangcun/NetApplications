@@ -18,7 +18,7 @@ namespace NetElasticsearch.Common.Model
         /// <summary>
         /// 姓名
         /// </summary>
-        [Text(Name = "Name")]
+        [Keyword(Name = "Name")]
         public string Name { get; set; }
     }
 

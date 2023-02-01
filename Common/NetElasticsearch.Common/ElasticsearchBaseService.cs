@@ -147,6 +147,20 @@ namespace NetElasticsearch.Common
             return searchRes.Documents.ToList();
         }
 
+        public async Task<List<T>> QueryWhere<T>(QueryContainer querys) where T : class
+        {
+            var mapName = getEsIndexName(typeof(T));
+            if (string.IsNullOrWhiteSpace(mapName))
+            {
+                return null;
+            }
+
+            var searchRes = await esClient.
+                SearchAsync<T>(s => s.Index(mapName).Query(e=> querys));
+
+            return searchRes.Documents.ToList();
+        }
+
         public List<T> QueryWhere<T>(string queryString) where T : class
         {
             var mapName = getEsIndexName(typeof(T));
