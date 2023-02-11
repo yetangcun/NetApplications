@@ -34,7 +34,7 @@ namespace WebApplicationCAP.Controllers
         [HttpPost("CappubWithAdonetTransHandle")]
         public async Task<IActionResult> CappubWithAdonetTransHandle ()
         {
-            using (IDbConnection conn = new MySqlConnection(_dbOption.DbConnectionString))
+            using (IDbConnection conn = new MySqlConnection(_dbOption.MasterConnectionString))
             {
                 using (var transaction = conn.BeginTransaction(_capBus, autoCommit: false))
                 {
@@ -42,7 +42,7 @@ namespace WebApplicationCAP.Controllers
 
                     var cmd = conn.CreateCommand();
                     cmd.CommandText = sql;
-                    cmd.Transaction = (IDbTransaction) transaction.DbTransaction;
+                    cmd.Transaction = (IDbTransaction)transaction.DbTransaction;
                     cmd.ExecuteNonQuery();
 
                     // 业务代码

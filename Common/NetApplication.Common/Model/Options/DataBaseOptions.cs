@@ -13,8 +13,13 @@ namespace NetApplication.Common.Model.Options
         public DataBaseType DbType { get; set; }
 
         /// <summary>
-        /// 数据连接串
+        /// 主数据连接串
         /// </summary>
-        public string DbConnectionString { get; set; }
+        public string MasterConnectionString { get; set; }
+
+        /// <summary>
+        /// 副数据库连接串
+        /// </summary>
+        public string SlaveConnectionString { get; set; }
     }
 }

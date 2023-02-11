@@ -21,8 +21,8 @@ namespace NetApplication.CapServices.EfCore
 
         protected override void OnConfiguring (DbContextOptionsBuilder optionsBuilder)
         {
-            var dbVersion = ServerVersion.AutoDetect(dbOption.DbConnectionString);
-            optionsBuilder.UseMySql(dbOption.DbConnectionString, dbVersion);
+            var dbVersion = ServerVersion.AutoDetect(dbOption.MasterConnectionString);
+            optionsBuilder.UseMySql(dbOption.MasterConnectionString, dbVersion);
             base.OnConfiguring(optionsBuilder);
         }
     }

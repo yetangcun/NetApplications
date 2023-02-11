@@ -1,6 +1,6 @@
 ﻿namespace NetDapper.Common
 {
-    public class Class1
+    public interface IDapperBaseRepository
     {
 
     }

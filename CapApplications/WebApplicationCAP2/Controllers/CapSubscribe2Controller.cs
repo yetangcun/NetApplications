@@ -41,7 +41,7 @@ namespace WebApplicationCAP2.Controllers
                 throw new Exception("test adonet errors");
             }
 
-            using (IDbConnection conn = new MySqlConnection(_dbOptions.DbConnectionString))
+            using (IDbConnection conn = new MySqlConnection(_dbOptions.MasterConnectionString))
             {
                 try
                 {
