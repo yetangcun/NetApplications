@@ -21,6 +21,9 @@ namespace NetDapper.Common
             if (string.IsNullOrWhiteSpace(connectionString) && isOptionExist)
                 connectionString = isRead ? _option.MasterConnectionString : _option.SlaveConnectionString;
 
+            if (string.IsNullOrWhiteSpace(_option.SlaveConnectionString))
+                _option.SlaveConnectionString = _option.MasterConnectionString;
+
             if (dbType == null && isOptionExist)
                 dbType = _option.DbType;
 
@@ -32,16 +35,16 @@ namespace NetDapper.Common
             switch (dbType)
             {
                 case DataBaseType.Mysql: dbUtil = new MysqlUtil(connectionString); break;
+                case DataBaseType.Sqlite: dbUtil = new SqliteUtil(connectionString); break;
                 case DataBaseType.Sqlserver: dbUtil = new SqlserverUtil(connectionString); break;
                 case DataBaseType.Postgresql: dbUtil = new PostgresqlUtil(connectionString); break;
-                case DataBaseType.Sqlite: dbUtil = new SqliteUtil(connectionString); break;
                 default: break;
             }
 
             return dbUtil;
         }
 
-        public async Task<T> GetAsync<T>(string sql, string connectionString = null, DataBaseType? dbType = null, bool isRead = false) where T : class
+        public async Task<T> GetAsync<T>(string sql, string connectionString = null, DataBaseType? dbType = null, bool isRead = true) where T : class
         {
             using (var dbUtil = GetDbUtil(connectionString, dbType, isRead))
             {
@@ -49,7 +52,7 @@ namespace NetDapper.Common
             }
         }
 
-        public async Task<List<T>> GetListAsync<T>(string sql, string connectionString = null, DataBaseType? dbType = null, bool isRead = false) where T : class
+        public async Task<List<T>> GetListAsync<T>(string sql, string connectionString = null, DataBaseType? dbType = null, bool isRead = true) where T : class
         {
             using (var dbUtil = GetDbUtil(connectionString, dbType, isRead))
             {
