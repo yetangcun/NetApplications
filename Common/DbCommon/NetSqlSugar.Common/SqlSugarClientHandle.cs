@@ -11,12 +11,12 @@ namespace NetSqlSugar.Common
 {
     public class SqlSugarClientHandle
     {
-        private ILogger<SqlSugarScopeHandle> _logger;
+        private ILogger<SqlSugarClientHandle> _logger;
 
         private List<ConnectionConfig> _connectionConfigs;
 
         public SqlSugarClientHandle(
-            ILogger<SqlSugarScopeHandle> logger,
+            ILogger<SqlSugarClientHandle> logger,
             IOptions<List<SqlsugarOptions>> options)
         {
             _logger = logger;
