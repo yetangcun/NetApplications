@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NetApplication.Common.Model.Options;
-using NetElasticsearch.Common.Model;
 
 namespace NetElasticsearch.Common
 {
