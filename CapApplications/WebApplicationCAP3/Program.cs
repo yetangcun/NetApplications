@@ -1,5 +1,4 @@
 using NetApplication.CapServices;
-// using WebApplicationCap2Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +16,6 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// builder.Services.AddTransient<ICapSubscribeService, CapSubscribeService>(); // ×¢²á
 builder.Services.CapServiceInitial(configure); // cap³õÊ¼»¯
 
 var app = builder.Build();

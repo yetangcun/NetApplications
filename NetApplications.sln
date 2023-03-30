@@ -54,9 +54,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetApplication.ICapServices
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetApplication.CapServices", "CapApplications\CapServices\NetApplication.CapServices\NetApplication.CapServices.csproj", "{18828757-C042-4966-9203-4A5D0042DA3B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetApplicationCap2Service", "CapApplications\CapServices\NetApplicationCap2Service\NetApplicationCap2Service.csproj", "{D4A03EFA-940E-43DE-AB95-9FC777B581A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetSqlSugar.Common", "Common\DbCommon\NetSqlSugar.Common\NetSqlSugar.Common.csproj", "{F9B0730E-DAE7-4B41-8E65-6CB4F9967E44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSqlSugar.Common", "Common\DbCommon\NetSqlSugar.Common\NetSqlSugar.Common.csproj", "{F9B0730E-DAE7-4B41-8E65-6CB4F9967E44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationCAP3", "CapApplications\WebApplicationCAP3\WebApplicationCAP3.csproj", "{BF1F11F3-703D-4D94-9E76-181D175E8761}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -132,14 +132,14 @@ Global
 		{18828757-C042-4966-9203-4A5D0042DA3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18828757-C042-4966-9203-4A5D0042DA3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18828757-C042-4966-9203-4A5D0042DA3B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D4A03EFA-940E-43DE-AB95-9FC777B581A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4A03EFA-940E-43DE-AB95-9FC777B581A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4A03EFA-940E-43DE-AB95-9FC777B581A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4A03EFA-940E-43DE-AB95-9FC777B581A7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F9B0730E-DAE7-4B41-8E65-6CB4F9967E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F9B0730E-DAE7-4B41-8E65-6CB4F9967E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9B0730E-DAE7-4B41-8E65-6CB4F9967E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9B0730E-DAE7-4B41-8E65-6CB4F9967E44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF1F11F3-703D-4D94-9E76-181D175E8761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF1F11F3-703D-4D94-9E76-181D175E8761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF1F11F3-703D-4D94-9E76-181D175E8761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF1F11F3-703D-4D94-9E76-181D175E8761}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -164,8 +164,8 @@ Global
 		{52211E05-F417-4637-A98E-B3569329CCAA} = {779F2E82-45E3-45DB-BE4B-AA46D0BC1898}
 		{A08D6786-D935-41D0-AE6A-2C0D32E84F44} = {FEBEA48E-675C-444C-B946-F6F0EFF8A2A9}
 		{18828757-C042-4966-9203-4A5D0042DA3B} = {FEBEA48E-675C-444C-B946-F6F0EFF8A2A9}
-		{D4A03EFA-940E-43DE-AB95-9FC777B581A7} = {FEBEA48E-675C-444C-B946-F6F0EFF8A2A9}
 		{F9B0730E-DAE7-4B41-8E65-6CB4F9967E44} = {779F2E82-45E3-45DB-BE4B-AA46D0BC1898}
+		{BF1F11F3-703D-4D94-9E76-181D175E8761} = {5AE68D1D-AB49-434A-A7F9-D64479A7B9B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B39901C7-2C1F-448B-87CA-48EB0AFF1CE2}

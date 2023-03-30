@@ -35,7 +35,7 @@ namespace WebApplicationCAP2.Controllers
         [CapSubscribe("adonet.services.show.times")]
         public async Task CapSubWithAdonetTransHandle (DateTime dateTime)
         {
-            if (runNums < 7)
+            if (runNums < 4)
             {
                 runNums++;
                 throw new Exception("test adonet errors");

@@ -80,7 +80,7 @@ namespace NetApplication.CapServices
                     }
                 };
                 config.FailedRetryCount = 6; // 失败重试次数
-                config.FailedRetryInterval = 6; // 失败重试间隔 3分钟
+                config.FailedRetryInterval = 20; // 失败重试间隔 30秒
             });
         }
 
