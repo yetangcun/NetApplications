@@ -26,5 +26,6 @@
         /// 虚拟机地址
         /// </summary>
         public string VirtualHost { get; set; }
+
     }
 }

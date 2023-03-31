@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetApplication.ICapServices.Model.Options;
 using NetApplication.CapServices.CapCore;
 using NetApplication.ICapServices.Model.Message;
+using NetApplication.CapServices.Const;
 
 namespace NetApplication.CapServices
 {
@@ -46,6 +47,7 @@ namespace NetApplication.CapServices
                 {
                     case MessageQueueType.Rabbitmq: // rabbitmq
                         var mqOption = configuration.GetSection("RabbitmqOptions").Get<RabbitmqOptions>();
+                        config.DefaultGroupName = capOption.DefaultQueueName;
                         config.UseRabbitMQ(opt =>
                         {
                             opt.Port = mqOption.Port;

@@ -16,5 +16,11 @@ namespace NetApplication.ICapServices.Model.Options
         /// Cap数据库连接串
         /// </summary>
         public string CapDbConnectionString { get; set; }
+
+
+        /// <summary>
+        /// 默认队列名
+        /// </summary>
+        public string DefaultQueueName { get; set; }
     }
 }
