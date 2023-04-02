@@ -38,7 +38,8 @@ namespace WebApplicationCAP.Controllers
             {
                 using (var transaction = conn.BeginTransaction(_capBus, autoCommit: false))
                 {
-                    var sql = "insert into sys_user_role(Id,RoleId,UserId,CreationTime,IsDeleted) values(1,2,3,'2022-09-22 11:34',0);";
+                    var id = new Random().Next(1, 10000);
+                    var sql = $"insert into sys_user_role(Id,RoleId,UserId,CreationTime,IsDeleted) values({id},2,3,'2022-09-22 11:34',0);";
 
                     var cmd = conn.CreateCommand();
                     cmd.CommandText = sql;

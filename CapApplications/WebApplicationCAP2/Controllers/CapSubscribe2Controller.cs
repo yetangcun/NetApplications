@@ -41,6 +41,7 @@ namespace WebApplicationCAP2.Controllers
                 throw new Exception("test adonet errors");
             }
 
+            var id = new Random().Next(1, 10000);
             using (IDbConnection conn = new MySqlConnection(_dbOptions.MasterConnectionString))
             {
                 try
@@ -48,7 +49,7 @@ namespace WebApplicationCAP2.Controllers
                     conn.Open();
                     using (var transaction = conn.BeginTransaction())
                     {
-                        var sql = "insert into sys_user_role(Id,RoleId,UserId,CreationTime,IsDeleted) values(11,22,33,'2022-09-22 13:34',0);";
+                        var sql = $"insert into sys_user_role(Id,RoleId,UserId,CreationTime,IsDeleted) values({id},22,33,'2022-09-22 13:34',0);";
 
                         var cmd = conn.CreateCommand();
                         cmd.CommandText = sql;

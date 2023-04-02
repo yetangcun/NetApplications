@@ -28,7 +28,7 @@ namespace NetApplication.CapServices
                 {
                     case DataBaseType.Mysql: // mysql
                         // config.UseEntityFramework<CapdbContext>();
-                        config.UseMySql(capOption.CapDbConnectionString); 
+                        config.UseMySql(dbOption.MasterConnectionString); 
                         break;
                     case DataBaseType.Sqlserver: // sqlserver
                         // config.UseSqlServer(dbOption.DbConnectionString); 
@@ -37,7 +37,7 @@ namespace NetApplication.CapServices
                         // config.UsePostgreSql(dbOption.DbConnectionString); 
                         break;
                     case DataBaseType.Mongodb: // mongodb
-                        config.UseMongoDB(capOption.CapDbConnectionString); 
+                        config.UseMongoDB(dbOption.MasterConnectionString); 
                         break;
                     default:break;
                 }
