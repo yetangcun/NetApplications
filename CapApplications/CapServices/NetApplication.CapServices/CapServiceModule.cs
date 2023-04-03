@@ -22,13 +22,16 @@ namespace NetApplication.CapServices
             var dbOption = configuration.GetSection("DbOptions").Get<DataBaseOptions>();
             serviceCollection.Configure<DataBaseOptions>(configuration.GetSection("DbOptions"));
             serviceCollection.AddDbContext<CapdbContext>();
+
             serviceCollection.AddCap(config =>
             {
+                // config.UseEntityFramework<CapdbContext>(); // 采用EfCore
+
+                // 采用ado.net
                 switch (dbOption.DbType) // 数据库类型
                 {
                     case DataBaseType.Mysql: // mysql
-                        // config.UseEntityFramework<CapdbContext>();
-                        config.UseMySql(dbOption.MasterConnectionString); 
+                        config.UseMySql(dbOption.MasterConnectionString);
                         break;
                     case DataBaseType.Sqlserver: // sqlserver
                         // config.UseSqlServer(dbOption.DbConnectionString); 
@@ -37,9 +40,9 @@ namespace NetApplication.CapServices
                         // config.UsePostgreSql(dbOption.DbConnectionString); 
                         break;
                     case DataBaseType.Mongodb: // mongodb
-                        config.UseMongoDB(dbOption.MasterConnectionString); 
+                        config.UseMongoDB(dbOption.MasterConnectionString);
                         break;
-                    default:break;
+                    default: break;
                 }
 
                 // 消息队列类型
@@ -67,6 +70,7 @@ namespace NetApplication.CapServices
                     opt.UseAuth = false;
                     opt.PathMatch = "/xCap";
                 });
+
                 config.FailedThresholdCallback = async (provider) => // 超过重试次数 发送通知 进行人工干预
                 {
                     var capFailedService = provider.ServiceProvider.GetService<ICapFailedHandleService>();
@@ -81,6 +85,7 @@ namespace NetApplication.CapServices
                         await capFailedService.SendMessageNotice(data);
                     }
                 };
+
                 config.FailedRetryCount = 6; // 失败重试次数
                 config.FailedRetryInterval = 20; // 失败重试间隔 30秒
             });
